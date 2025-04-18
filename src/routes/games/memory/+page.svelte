@@ -177,8 +177,73 @@
 	}
 
 	.text-gradient {
-		background: linear-gradient(45deg, #3b82f6, #9333ea);
+		background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
+		background-clip: text;
+		filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+	}
+	.game-card {
+		background: white;
+		border-radius: 1rem;
+		overflow: hidden;
+		box-shadow:
+			0 10px 30px rgba(0, 0, 0, 0.1),
+			0 0 0 1px rgba(0, 0, 0, 0.05);
+		max-width: 1300px;
+		margin: 0 auto;
+		position: relative;
+		z-index: 5;
+		backdrop-filter: blur(5px);
+	}
+
+	.game-container {
+		position: relative;
+		padding: 1.5rem;
+		background: #f9fafb;
+		border-radius: 0.5rem;
+		box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+		display: flex;
+		justify-content: center;
+		width: 100%;
+		max-width: 1100px;
+		margin: 0 auto;
+		overflow: hidden;
+	}
+
+	.back-button {
+		display: inline-block;
+		background: var(--primary);
+		color: white;
+		font-weight: 600;
+		padding: 0.75rem 1.5rem;
+		border-radius: 2rem;
+		transition: all 0.3s ease;
+		text-decoration: none;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	}
+
+	.back-button:hover {
+		background: var(--primary-dark);
+		transform: translateY(-2px);
+		box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+		text-decoration: none;
+		color: white;
+	}
+
+	@media (max-width: 768px) {
+		.game-card {
+			max-width: 95%;
+		}
+
+		.game-container {
+			padding: 0.75rem;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.game-container {
+			padding: 0.5rem;
+		}
 	}
 </style>

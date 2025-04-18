@@ -28,7 +28,7 @@
 		visible = true;
 
 		if (!$memoryInitialized) {
-			const cardValues = ['🚀', '🎮', '🌟', '🔥', '🎨', '🎭', '🎯', '🎪'];
+            const cardValues = ['💻', '🖥️', '⌨️', '📱', '💾', '🌐', '🔒', '⚙️'];
 			cards = [];
 
 			cardValues.forEach((value, index) => {
