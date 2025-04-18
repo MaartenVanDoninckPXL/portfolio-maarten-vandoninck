@@ -181,7 +181,6 @@
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
 		background-clip: text;
-		text-fill-color: transparent;
 		filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
 	}
 
@@ -192,7 +191,7 @@
 		box-shadow:
 			0 10px 30px rgba(0, 0, 0, 0.1),
 			0 0 0 1px rgba(0, 0, 0, 0.05);
-		max-width: 900px;
+		max-width: 1300px;
 		margin: 0 auto;
 		position: relative;
 		z-index: 5;
@@ -208,7 +207,7 @@
 		display: flex;
 		justify-content: center;
 		width: 100%;
-		max-width: 850px;
+		max-width: 1100px;
 		margin: 0 auto;
 		overflow: hidden;
 	}

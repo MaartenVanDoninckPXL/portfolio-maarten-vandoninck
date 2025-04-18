@@ -76,6 +76,16 @@
 							Try out this interactive jigsaw puzzle! Click on pieces to select them, then click on
 							another piece to swap their positions. Can you solve it?
 						</p>
+
+						<div class="game-instructions mb-4">
+							<h3 class="mb-2 text-lg font-semibold">How to play:</h3>
+							<ol class="ml-6 list-decimal">
+								<li>Click on a piece to select it</li>
+								<li>Click on another piece to swap positions</li>
+								<li>Continue until the image is complete</li>
+							</ol>
+						</div>
+
 						<div class="game-container">
 							<JigsawGame />
 						</div>
