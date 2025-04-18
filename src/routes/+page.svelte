@@ -1,15 +1,21 @@
 <script lang="ts">
 	import JigsawGame from '$lib/components/JigsawGame.svelte';
+	import { jigsawCompleted } from '$lib/stores';
 	import { onMount } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
 
 	let visible = false;
 	let mouseX = 0;
 	let mouseY = 0;
+	let showFullStudiereisContent = false;
 
 	function handleMouseMove(event: MouseEvent) {
 		mouseX = event.clientX / window.innerWidth;
 		mouseY = event.clientY / window.innerHeight;
+	}
+
+	function toggleStudiereisContent() {
+		showFullStudiereisContent = !showFullStudiereisContent;
 	}
 
 	onMount(() => {
@@ -87,7 +93,23 @@
 						</div>
 
 						<div class="game-container">
-							<JigsawGame />
+							<div class="game-wrapper" class:expanded={showFullStudiereisContent}>
+								<JigsawGame />
+								{#if $jigsawCompleted}
+									<div class="content-fade-overlay" class:hidden={showFullStudiereisContent}>
+										<button class="toggle-content-btn" on:click={toggleStudiereisContent}>
+											Show full story
+										</button>
+									</div>
+									{#if showFullStudiereisContent}
+										<div class="content-footer">
+											<button class="toggle-content-btn" on:click={toggleStudiereisContent}>
+												Hide content
+											</button>
+										</div>
+									{/if}
+								{/if}
+							</div>
 						</div>
 						<div class="mt-4 text-center">
 							<a href="/games/jigsaw" class="play-link">Play full screen version →</a>
@@ -301,6 +323,76 @@
 		background: #f9fafb;
 		border-radius: 0.5rem;
 		box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+	}
+
+	.game-wrapper {
+		width: 100%;
+		max-height: 600px;
+		overflow: hidden;
+		position: relative;
+		transition: max-height 0.5s ease;
+	}
+
+	.content-fade-overlay {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 200px;
+		background: linear-gradient(to bottom, transparent, #f9fafb 80%);
+		display: flex;
+		justify-content: center;
+		align-items: flex-end;
+		padding-bottom: 1rem;
+		transition: opacity 0.3s ease;
+	}
+
+	.content-fade-overlay.hidden {
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	.content-footer {
+		display: flex;
+		justify-content: center;
+		padding: 1rem 0;
+	}
+
+	.toggle-content-btn {
+		background-color: var(--primary);
+		color: white;
+		border: none;
+		padding: 0.5rem 1.5rem;
+		border-radius: 2rem;
+		font-weight: 600;
+		font-size: 0.875rem;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+		z-index: 31
+	}
+
+	.toggle-content-btn:hover {
+		background-color: var(--primary-dark);
+		transform: translateY(-2px);
+		box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+	}
+
+	.game-wrapper.expanded {
+		max-height: none;
+	}
+
+	.game-wrapper::-webkit-scrollbar {
+		width: 6px;
+	}
+
+	.game-wrapper::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	.game-wrapper::-webkit-scrollbar-thumb {
+		background-color: var(--gray-light);
+		border-radius: 6px;
 	}
 
 	.play-link {
