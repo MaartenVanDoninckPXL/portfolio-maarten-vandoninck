@@ -106,201 +106,190 @@
     `;
 </script>
 
-{#if !$jigsawCompleted || !allImagesLoaded}
-	<div style={gridStyle} class="jigsaw-grid" out:fade={{ duration: 1000 }}>
-		{#each shuffled as piece, index (piece.id)}
-			<!-- svelte-ignore a11y_click_events_have_key_events -->
-			<div
-				animate:flip={{ duration: 150 }}
-				class="puzzle-piece"
-				class:selected={selectedIndex === index}
-				on:click={() => handlePieceClick(index)}
-				role="button"
-				tabindex="0"
-				aria-label="Jigsaw piece {index + 1}"
-			>
-				<img
-					src={piece.imageUrl}
-					alt={`Jigsaw piece ${index + 1}`}
-					class="piece-image"
-					on:load={handleImageLoad}
-					on:error={() => handleImageError(piece.imageUrl)}
-				/>
-			</div>
-		{/each}
-	</div>
-{/if}
-
-{#if $jigsawCompleted && allImagesLoaded}
-	<div class="completion-container">
-		{#if showCelebration}
-			<div
-				class="celebration"
-				in:scale={{ duration: 500, start: 0.8, opacity: 0, easing: elasticOut }}
-			>
-				<div class="celebration-inner">
-					<div class="celebration-text">Puzzle Completed!</div>
-					<div class="confetti-container">
-						{#each Array(20) as _, i}
-							<div
-								class="confetti"
-								style="
-							--delay: {Math.random() * 0.5}s; 
-							--left: {Math.random() * 100}%; 
-							--bg: hsl({Math.random() * 360}, 80%, 60%);
-							--size: {Math.random() * 0.5 + 0.5}rem;
-						"
-							></div>
-						{/each}
-					</div>
+<div class="game-wrapper">
+	{#if !$jigsawCompleted || !allImagesLoaded}
+		<div style={gridStyle} class="jigsaw-grid">
+			{#each shuffled as piece, index (piece.id)}
+				<!-- svelte-ignore a11y_click_events_have_key_events -->
+				<div
+					animate:flip={{ duration: 150 }}
+					class="puzzle-piece"
+					class:selected={selectedIndex === index}
+					on:click={() => handlePieceClick(index)}
+					role="button"
+					tabindex="0"
+					aria-label="Jigsaw piece {index + 1}"
+				>
+					<img
+						src={piece.imageUrl}
+						alt={`Jigsaw piece ${index + 1}`}
+						class="piece-image"
+						on:load={handleImageLoad}
+						on:error={() => handleImageError(piece.imageUrl)}
+					/>
 				</div>
-			</div>
-		{/if}
-
-		<div class="revealed-content mt-8" in:fade={{ duration: 800, delay: 300 }}>
-			<h2 class="mb-4 text-center text-2xl font-bold">Studiereis</h2>
-
-			<h3 class="mt-6 text-xl font-bold" in:fly={{ y: 20, duration: 500, delay: 1800 }}>
-				Omschrijving
-			</h3>
-			<p in:fly={{ y: 20, duration: 500, delay: 1900 }}>
-				De studentenreis naar Linz en Salzburg was erop gericht om studenten kennis te laten maken
-				met een internationale IT-omgeving, waarbij zowel professionele als culturele aspecten
-				centraal stonden. Zo bezochten we de Fachhochschule Oberösterreich (FH OÖ) of University of
-				Applied Sciences Upper Austria in Hagenberg en het Ars Electronica Center in Linz, terwijl
-				we ook de stad Salzburg hebben bezocht om Oostenrijk verder te ontdekken. Mijn doel voor
-				deze reis was om IT in een ander land en een andere cultuur te ontdekken.
-			</p>
-
-			<div class="image-container" in:scale={{ duration: 600, delay: 2000, start: 0.9 }}>
-				<img
-					src="/studiereis/PLX_AEC-min.jpg"
-					alt="PXL studenten bij het Ars Electronica Center"
-					class="content-image"
-				/>
-				<p class="image-caption">PXL studenten bij het Ars Electronica Center in Linz</p>
-			</div>
-
-			<h3 class="mt-6 text-xl font-bold" in:fly={{ y: 20, duration: 500, delay: 1800 }}>Kern</h3>
-			<p in:fly={{ y: 20, duration: 500, delay: 1900 }}>
-				De studentenreis begon vroeg op woensdagochtend 19 maart, toen we in Hasselt opstapten voor
-				een lange busrit richting Linz. Na een dag op de weg kwamen we 's avonds aan in het
-				Sommerhaus Hotel, gelegen in een studentenwijk op zo'n vijf kilometer van het stadscentrum.
-				Deze eerste avond konden we vrij invullen, voor ons bestond dit uit samen een plek zoeken om
-				avondeten te eten en rustig de avond eindigen in het hotelcafé met wat kaarten.
-			</p>
-			<p in:fly={{ y: 20, duration: 500, delay: 1900 }}>
-				De volgende dag, donderdag 20 maart, stond geheel in het teken van het verkennen van Linz,
-				met bijzondere aandacht voor het Ars Electronica Center (AEC). We begonnen de dag met een
-				gezamenlijk ontbijt in ons hotel en vertrokken rond negen uur naar het stadscentrum. De
-				ochtend konden we vrij besteden aan het verkennen van de stad, waar wij een prachtige
-				historische omgeving omgeven door adembenemende natuur ontdekten. Om kwart voor twaalf
-				verzamelden wij ons bij het AEC voor een begeleide rondleiding.
-			</p>
-
-			<div class="image-container" in:scale={{ duration: 600, delay: 2000, start: 0.9 }}>
-				<img src="/studiereis/AEC.webp" alt="Ars Electronica Center" class="content-image" />
-				<p class="image-caption">Ars Electronica Center in Linz</p>
-			</div>
-
-			<p in:fly={{ y: 20, duration: 500, delay: 1900 }}>
-				Tijdens deze rondleiding werden wij ondergedompeld in een wereld waarin technologie en
-				samenleving op een indrukwekkende en originele manier tentoongesteld werden. De interactieve
-				installaties boden een uitstekende demonstratie van hoe Virtual en Augmented Reality,
-				robotica en creatieve wetenschap elkaar kunnen aanvullen. Deze middag bood mij een nieuw
-				perspectief op de rol van technologie, deze is niet enkel praktisch, maar kan ook artistieke
-				en sociale dimensies omvatten. Na afloop van de rondleiding hadden we de mogelijkheid om
-				langer te blijven om de diverse tentoonstellingen verder te verkennen of terug te keren naar
-				de binnenstad. Dit bood ons een waardevolle gelegenheid om het museum verder te ontdekken.
-				's Avonds hadden we opnieuw vrije tijd en konden we lokale eetgelegenheden bezoeken om samen
-				de avond af te sluiten.
-			</p>
-
-			<p in:fly={{ y: 20, duration: 500, delay: 1900 }}>
-				Op vrijdag 21 maart richtten we onze blik op het FH OÖ in Hagenberg. Na het ontbijt
-				vertrokken we opnieuw met de bus en kregen we bij aankomst verschillende presentaties, onder
-				meer over de studie- en onderzoekmogelijkheden en het IM.ma-programma (Interactive Media).
-				Er volgde ook een toelichting over de internationale context voor studenten die interesse
-				hebben in een uitwisselingsproject. De voormiddag werd afgesloten met een campusrondleiding,
-				waarbij duidelijk werd hoeveel aandacht er is voor praktijklokalen, labs en projectruimtes.
-			</p>
-
-			<div class="image-container" in:scale={{ duration: 600, delay: 2000, start: 0.9 }}>
-				<img src="/studiereis/FHOO.jpg" alt="Fachhochschule Oberösterreich" class="content-image" />
-				<p class="image-caption">Fachhochschule Oberösterreich (FH OÖ) in Hagenberg</p>
-			</div>
-
-			<p in:fly={{ y: 20, duration: 500, delay: 1900 }}>
-				In de namiddag konden we deelnemen aan een workshop. Deze was "Computer Graphics and
-				Visualization," waar we samen met een lokale docent/student een applicatie tot stand
-				brachten met behulp van AI. Daarna konden we nog verder de tentoonstelling en standjes van
-				de lokale studenten verkennen. Dit gaf een beeld dat er veel gelijkenissen zijn tussen onze
-				manieren van werken, maar toch enkele interessante verschillen.
-			</p>
-
-			<p in:fly={{ y: 20, duration: 500, delay: 1900 }}>
-				Zaterdag 22 maart bestond uit een culturele uitstap naar Salzburg. Na een rit van enkele
-				uren bereikten we rond de middag het centrum van Salzburg, waar we de rest van de dag vrij
-				konden invullen. Hier konden we een prachtige historische stad verkennen. Het was onmogelijk
-				om alles te verkennen, aangezien het de 2e grootste stad van Oostenrijk is, maar wat we
-				konden zien was prachtig. Het contrast tussen de hypermoderne sfeer in Linz en het
-				historisch erfgoed van Salzburg kon niet groter zijn, wat de ervaring extra bijzonder
-				maakte. We proefden lokale specialiteiten en verkenden bezienswaardigheden zoals de
-				Hohensalzburg-fortress en de oever van de Salzach-rivier.
-			</p>
-
-			<div class="image-container" in:scale={{ duration: 600, delay: 2000, start: 0.9 }}>
-				<img src="/studiereis/Salzburg.jpg" alt="Salzburg stad" class="content-image" />
-				<p class="image-caption">Historisch centrum van Salzburg</p>
-			</div>
-
-			<p in:fly={{ y: 20, duration: 500, delay: 1900 }}>
-				Op zondag 23 maart keerden we na een vroeg ontbijt terug naar Hasselt. De terugrit was een
-				stuk rustiger na een vermoeiende reis, maar toch had je het gevoel dat je de personen die om
-				je heen zaten net een beetje beter kenden.
-			</p>
-
-			<h3 class="mt-6 text-xl font-bold" in:fly={{ y: 20, duration: 500, delay: 1800 }}>
-				Reflectie
-			</h3>
-			<p in:fly={{ y: 20, duration: 500, delay: 1900 }}>
-				Tijdens deze studiereis heb ik niet alleen nieuwe dingen geleerd, maar ook mijn eigen
-				vaardigheden en interesses beter leren kennen. Ik merkte bijvoorbeeld dat taal soms een
-				barrière kon vormen, in Linz en Hagenberg sprak men wel Engels, maar alle tekst is voorzien
-				voor personen die Duits spreken. Dit dwong me om mijn beperkte kennis van het Duits toch
-				eens te benutten of om online tools te gebruiken, dit was natuurlijk niet altijd even
-				handig.
-			</p>
-			<p in:fly={{ y: 20, duration: 500, delay: 1900 }}>
-				Bij de rondleidingen en workshops in Hagenberg zag ik hoe onze opleiding Toegepaste
-				Informatica sterk aansluit bij wat de FH OÖ aanbiedt. We hebben een vergelijkbare focus op
-				praktijkopdrachten en projectwerk. De verschillen zitten in de gespecialiseerde modules,
-				zoals Interactive Media, die een andere insteek hadden dan ik gewend ben. Dit vond ik
-				bijzonder interessant, omdat het me liet zien dat je met je IT-skills in diverse richtingen
-				kunt evolueren, zowel technisch als creatief.
-			</p>
-			<p in:fly={{ y: 20, duration: 500, delay: 1900 }}>
-				Terwijl een situatie waar samenwerking niet direct nodig was zich voordeed, is het toch
-				belangrijk om een team te zijn, dit maakt namelijk de reis een veel aangenamere en
-				leerzamere ervaring. Achteraf kreeg je dan ook het gevoel dat je elkaar beter begreep en
-				kende, wat toekomstige projecten en ervaringen een stuk makkelijker gaat maken.
-			</p>
-			<p in:fly={{ y: 20, duration: 500, delay: 1900 }}>
-				Ik koos voor deze opdracht in mijn portfolio omdat het een mooie mix is van internationale
-				ervaring, culturele uitwisseling en professionele oriëntatie. Ik heb ervaren hoe verrijkend
-				het is om in een internationale context. Deze reis was voor mij dus een groot succes en ik
-				zou het zeker opnieuw doen als ik de kans kreeg.
-			</p>
+			{/each}
 		</div>
-	</div>
-{/if}
+	{:else}
+		<div class="completion-container">
+			<div class="revealed-content mt-8" in:fade={{ duration: 800, delay: 300 }}>
+				<h2 class="mb-4 text-center text-2xl font-bold">Studiereis</h2>
+
+				<h3 class="mt-6 text-xl font-bold" in:fly={{ y: 20, duration: 500, delay: 400 }}>
+					Omschrijving
+				</h3>
+				<p in:fly={{ y: 20, duration: 500, delay: 800 }}>
+					De studentenreis naar Linz en Salzburg was erop gericht om studenten kennis te laten maken
+					met een internationale IT-omgeving, waarbij zowel professionele als culturele aspecten
+					centraal stonden. Zo bezochten we de Fachhochschule Oberösterreich (FH OÖ) of University
+					of Applied Sciences Upper Austria in Hagenberg en het Ars Electronica Center in Linz,
+					terwijl we ook de stad Salzburg hebben bezocht om Oostenrijk verder te ontdekken. Mijn
+					doel voor deze reis was om IT in een ander land en een andere cultuur te ontdekken.
+				</p>
+
+				<div class="image-container" in:scale={{ duration: 600, delay: 800, start: 0.9 }}>
+					<img
+						src="/studiereis/PLX_AEC-min.jpg"
+						alt="PXL studenten bij het Ars Electronica Center"
+						class="content-image"
+					/>
+					<p class="image-caption">PXL studenten bij het Ars Electronica Center in Linz</p>
+				</div>
+
+				<h3 class="mt-6 text-xl font-bold" in:fly={{ y: 20, duration: 500, delay: 800 }}>Kern</h3>
+				<p in:fly={{ y: 20, duration: 500, delay: 800 }}>
+					De studentenreis begon vroeg op woensdagochtend 19 maart, toen we in Hasselt opstapten
+					voor een lange busrit richting Linz. Na een dag op de weg kwamen we 's avonds aan in het
+					Sommerhaus Hotel, gelegen in een studentenwijk op zo'n vijf kilometer van het
+					stadscentrum. Deze eerste avond konden we vrij invullen, voor ons bestond dit uit samen
+					een plek zoeken om avondeten te eten en rustig de avond eindigen in het hotelcafé met wat
+					kaarten.
+				</p>
+				<p in:fly={{ y: 20, duration: 500, delay: 800 }}>
+					De volgende dag, donderdag 20 maart, stond geheel in het teken van het verkennen van Linz,
+					met bijzondere aandacht voor het Ars Electronica Center (AEC). We begonnen de dag met een
+					gezamenlijk ontbijt in ons hotel en vertrokken rond negen uur naar het stadscentrum. De
+					ochtend konden we vrij besteden aan het verkennen van de stad, waar wij een prachtige
+					historische omgeving omgeven door adembenemende natuur ontdekten. Om kwart voor twaalf
+					verzamelden wij ons bij het AEC voor een begeleide rondleiding.
+				</p>
+
+				<div class="image-container" in:scale={{ duration: 600, delay: 800, start: 0.9 }}>
+					<img src="/studiereis/AEC.webp" alt="Ars Electronica Center" class="content-image" />
+					<p class="image-caption">Ars Electronica Center in Linz</p>
+				</div>
+
+				<p in:fly={{ y: 20, duration: 500, delay: 800 }}>
+					Tijdens deze rondleiding werden wij ondergedompeld in een wereld waarin technologie en
+					samenleving op een indrukwekkende en originele manier tentoongesteld werden. De
+					interactieve installaties boden een uitstekende demonstratie van hoe Virtual en Augmented
+					Reality, robotica en creatieve wetenschap elkaar kunnen aanvullen. Deze middag bood mij
+					een nieuw perspectief op de rol van technologie, deze is niet enkel praktisch, maar kan
+					ook artistieke en sociale dimensies omvatten. Na afloop van de rondleiding hadden we de
+					mogelijkheid om langer te blijven om de diverse tentoonstellingen verder te verkennen of
+					terug te keren naar de binnenstad. Dit bood ons een waardevolle gelegenheid om het museum
+					verder te ontdekken. 's Avonds hadden we opnieuw vrije tijd en konden we lokale
+					eetgelegenheden bezoeken om samen de avond af te sluiten.
+				</p>
+
+				<p in:fly={{ y: 20, duration: 500, delay: 800 }}>
+					Op vrijdag 21 maart richtten we onze blik op het FH OÖ in Hagenberg. Na het ontbijt
+					vertrokken we opnieuw met de bus en kregen we bij aankomst verschillende presentaties,
+					onder meer over de studie- en onderzoekmogelijkheden en het IM.ma-programma (Interactive
+					Media). Er volgde ook een toelichting over de internationale context voor studenten die
+					interesse hebben in een uitwisselingsproject. De voormiddag werd afgesloten met een
+					campusrondleiding, waarbij duidelijk werd hoeveel aandacht er is voor praktijklokalen,
+					labs en projectruimtes.
+				</p>
+
+				<div class="image-container" in:scale={{ duration: 600, delay: 800, start: 0.9 }}>
+					<img
+						src="/studiereis/FHOO.jpg"
+						alt="Fachhochschule Oberösterreich"
+						class="content-image"
+					/>
+					<p class="image-caption">Fachhochschule Oberösterreich (FH OÖ) in Hagenberg</p>
+				</div>
+
+				<p in:fly={{ y: 20, duration: 500, delay: 800 }}>
+					In de namiddag konden we deelnemen aan een workshop. Deze was "Computer Graphics and
+					Visualization," waar we samen met een lokale docent/student een applicatie tot stand
+					brachten met behulp van AI. Daarna konden we nog verder de tentoonstelling en standjes van
+					de lokale studenten verkennen. Dit gaf een beeld dat er veel gelijkenissen zijn tussen
+					onze manieren van werken, maar toch enkele interessante verschillen.
+				</p>
+
+				<p in:fly={{ y: 20, duration: 500, delay: 800 }}>
+					Zaterdag 22 maart bestond uit een culturele uitstap naar Salzburg. Na een rit van enkele
+					uren bereikten we rond de middag het centrum van Salzburg, waar we de rest van de dag vrij
+					konden invullen. Hier konden we een prachtige historische stad verkennen. Het was
+					onmogelijk om alles te verkennen, aangezien het de 2e grootste stad van Oostenrijk is,
+					maar wat we konden zien was prachtig. Het contrast tussen de hypermoderne sfeer in Linz en
+					het historisch erfgoed van Salzburg kon niet groter zijn, wat de ervaring extra bijzonder
+					maakte. We proefden lokale specialiteiten en verkenden bezienswaardigheden zoals de
+					Hohensalzburg-fortress en de oever van de Salzach-rivier.
+				</p>
+
+				<div class="image-container" in:scale={{ duration: 600, delay: 800, start: 0.9 }}>
+					<img src="/studiereis/Salzburg.jpg" alt="Salzburg stad" class="content-image" />
+					<p class="image-caption">Historisch centrum van Salzburg</p>
+				</div>
+
+				<p in:fly={{ y: 20, duration: 500, delay: 800 }}>
+					Op zondag 23 maart keerden we na een vroeg ontbijt terug naar Hasselt. De terugrit was een
+					stuk rustiger na een vermoeiende reis, maar toch had je het gevoel dat je de personen die
+					om je heen zaten net een beetje beter kenden.
+				</p>
+
+				<h3 class="mt-6 text-xl font-bold" in:fly={{ y: 20, duration: 500, delay: 800 }}>
+					Reflectie
+				</h3>
+				<p in:fly={{ y: 20, duration: 500, delay: 800 }}>
+					Tijdens deze studiereis heb ik niet alleen nieuwe dingen geleerd, maar ook mijn eigen
+					vaardigheden en interesses beter leren kennen. Ik merkte bijvoorbeeld dat taal soms een
+					barrière kon vormen, in Linz en Hagenberg sprak men wel Engels, maar alle tekst is
+					voorzien voor personen die Duits spreken. Dit dwong me om mijn beperkte kennis van het
+					Duits toch eens te benutten of om online tools te gebruiken, dit was natuurlijk niet
+					altijd even handig.
+				</p>
+				<p in:fly={{ y: 20, duration: 500, delay: 800 }}>
+					Bij de rondleidingen en workshops in Hagenberg zag ik hoe onze opleiding Toegepaste
+					Informatica sterk aansluit bij wat de FH OÖ aanbiedt. We hebben een vergelijkbare focus op
+					praktijkopdrachten en projectwerk. De verschillen zitten in de gespecialiseerde modules,
+					zoals Interactive Media, die een andere insteek hadden dan ik gewend ben. Dit vond ik
+					bijzonder interessant, omdat het me liet zien dat je met je IT-skills in diverse
+					richtingen kunt evolueren, zowel technisch als creatief.
+				</p>
+				<p in:fly={{ y: 20, duration: 500, delay: 800 }}>
+					Terwijl een situatie waar samenwerking niet direct nodig was zich voordeed, is het toch
+					belangrijk om een team te zijn, dit maakt namelijk de reis een veel aangenamere en
+					leerzamere ervaring. Achteraf kreeg je dan ook het gevoel dat je elkaar beter begreep en
+					kende, wat toekomstige projecten en ervaringen een stuk makkelijker gaat maken.
+				</p>
+				<p in:fly={{ y: 20, duration: 500, delay: 800 }}>
+					Ik koos voor deze opdracht in mijn portfolio omdat het een mooie mix is van internationale
+					ervaring, culturele uitwisseling en professionele oriëntatie. Ik heb ervaren hoe
+					verrijkend het is om in een internationale context. Deze reis was voor mij dus een groot
+					succes en ik zou het zeker opnieuw doen als ik de kans kreeg.
+				</p>
+			</div>
+		</div>
+	{/if}
+</div>
 
 <style>
+	.game-wrapper {
+		position: relative;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
+
 	.jigsaw-grid {
-		aspect-ratio: 1.5 / 1;
 		position: relative;
 		z-index: 5;
 		transition: opacity 1s ease;
+		aspect-ratio: 1.5 / 1;
 	}
 
 	.puzzle-piece {
@@ -400,39 +389,6 @@
 		}
 	}
 
-	.celebration {
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		z-index: 20;
-		height: 100%;
-	}
-
-	.celebration-inner {
-		padding: 2rem;
-		position: relative;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.celebration-text {
-		font-size: 2.5rem;
-		font-weight: bold;
-		margin-bottom: 1rem;
-		background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-		filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-		animation: pulse 1s infinite alternate ease-in-out;
-	}
-
 	@keyframes pulse {
 		from {
 			transform: scale(1);
@@ -440,28 +396,6 @@
 		to {
 			transform: scale(1.05);
 		}
-	}
-
-	.confetti-container {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		left: 0;
-		overflow: hidden;
-		pointer-events: none;
-	}
-
-	.confetti {
-		position: absolute;
-		top: -10%;
-		left: var(--left);
-		width: var(--size);
-		height: var(--size);
-		background-color: var(--bg);
-		transform-origin: center;
-		opacity: 0.8;
-		animation: confetti-fall 3s ease-in forwards var(--delay);
 	}
 
 	@keyframes confetti-fall {
