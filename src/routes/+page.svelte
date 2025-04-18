@@ -1,6 +1,7 @@
 <script lang="ts">
 	import JigsawGame from '$lib/components/JigsawGame.svelte';
-	import { jigsawCompleted } from '$lib/stores';
+	import MemoryGame from '$lib/components/MemoryGame.svelte';
+	import { jigsawCompleted, memoryCompleted } from '$lib/stores';
 	import { onMount } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
 
@@ -8,6 +9,7 @@
 	let mouseX = 0;
 	let mouseY = 0;
 	let showFullStudiereisContent = false;
+	let showFullHackathonContent = false;
 
 	function handleMouseMove(event: MouseEvent) {
 		mouseX = event.clientX / window.innerWidth;
@@ -16,6 +18,10 @@
 
 	function toggleStudiereisContent() {
 		showFullStudiereisContent = !showFullStudiereisContent;
+	}
+
+	function toggleHackathonContent() {
+		showFullHackathonContent = !showFullHackathonContent;
 	}
 
 	onMount(() => {
@@ -113,6 +119,48 @@
 						</div>
 						<div class="mt-4 text-center">
 							<a href="/games/jigsaw" class="play-link">Play full screen version →</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="animated-card" in:fly={{ x: -20, duration: 800, delay: 1200 }}>
+					<div class="card-body">
+						<h2 class="card-title mb-4 text-2xl font-bold">Memory Game</h2>
+						<p class="mb-4">
+							Test your memory with this matching card game! Click on cards to flip them and find
+							matching pairs. Can you match all the cards?
+						</p>
+
+						<div class="game-instructions mb-4">
+							<h3 class="mb-2 text-lg font-semibold">How to play:</h3>
+							<ol class="ml-6 list-decimal">
+								<li>Click on a card to flip it</li>
+								<li>Find matching pairs of cards</li>
+								<li>Match all pairs to complete the game</li>
+							</ol>
+						</div>
+
+						<div class="game-container">
+							<div class="game-wrapper" class:expanded={showFullHackathonContent}>
+								<MemoryGame />
+								{#if $memoryCompleted}
+									<div class="content-fade-overlay" class:hidden={showFullHackathonContent}>
+										<button class="toggle-content-btn" on:click={toggleHackathonContent}>
+											Show full story
+										</button>
+									</div>
+									{#if showFullHackathonContent}
+										<div class="content-footer">
+											<button class="toggle-content-btn" on:click={toggleHackathonContent}>
+												Hide content
+											</button>
+										</div>
+									{/if}
+								{/if}
+							</div>
+						</div>
+						<div class="mt-4 text-center">
+							<a href="/games/memory" class="play-link">Play full screen version →</a>
 						</div>
 					</div>
 				</div>
@@ -327,7 +375,7 @@
 
 	.game-wrapper {
 		width: 100%;
-		max-height: 600px;
+		max-height: 1100px;
 		overflow: hidden;
 		position: relative;
 		transition: max-height 0.5s ease;
@@ -369,7 +417,7 @@
 		cursor: pointer;
 		transition: all 0.2s ease;
 		box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
-		z-index: 31
+		z-index: 31;
 	}
 
 	.toggle-content-btn:hover {
