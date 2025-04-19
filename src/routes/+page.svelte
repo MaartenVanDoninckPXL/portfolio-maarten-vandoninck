@@ -199,7 +199,7 @@
 							</div>
 						</div>
 						<div class="mt-4 text-center">
-							<a href="/games/jigsaw" class="play-link">Speel volledige schermversie →</a>
+							<a href="/games/memory" class="play-link">Speel volledige schermversie →</a>
 						</div>
 					</div>
 				</div>
@@ -243,7 +243,7 @@
 							</div>
 						</div>
 						<div class="mt-4 text-center">
-							<a href="/games/jigsaw" class="play-link">Speel volledige schermversie →</a>
+							<a href="/games/wordsearch" class="play-link">Speel volledige schermversie →</a>
 						</div>
 					</div>
 				</div>
@@ -348,7 +348,10 @@
 									aan engagement en empathie, wil ik blijven koesteren in mijn verdere ontwikkeling.
 								</p>
 
-								<div class="image-container" in:scale={{ duration: 600, delay: 800, start: 0.9 }}>
+								<div
+									class="image-container small-image"
+									in:scale={{ duration: 600, delay: 800, start: 0.9 }}
+								>
 									<img
 										src="/eindreflectie/x-factor.png"
 										alt="X-Factor diagram"
@@ -1016,6 +1019,12 @@
 		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 	}
 
+	.small-image {
+		max-width: 60%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
 	.content-image {
 		width: 100%;
 		height: auto;
@@ -1034,5 +1043,11 @@
 		color: var(--gray);
 		background-color: #f9fafb;
 		margin-bottom: 0;
+	}
+
+	@media (max-width: 768px) {
+		.small-image {
+			max-width: 90%;
+		}
 	}
 </style>

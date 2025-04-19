@@ -28,7 +28,7 @@
 		visible = true;
 
 		if (!$memoryInitialized) {
-            const cardValues = ['💻', '🖥️', '⌨️', '📱', '💾', '🌐', '🔒', '⚙️'];
+			const cardValues = ['💻', '🖥️', '⌨️', '📱', '💾', '🌐', '🔒', '⚙️'];
 			cards = [];
 
 			cardValues.forEach((value, index) => {
@@ -186,6 +186,21 @@
 					kunnen implementeren. Daarom kozen wij voor het webframework Vue.js in combinatie met de
 					light weight database MariaDB.
 				</p>
+
+				<div class="logos-container" in:scale={{ duration: 600, delay: 800, start: 0.9 }}>
+					<div class="logo-item">
+						<img src="/hackathon/Vue_js_logo.png" alt="Vue.js Logo" class="logo-image" />
+						<p class="image-caption">
+							Vue.js werd gebruikt als front-end framework voor de applicatie
+						</p>
+					</div>
+
+					<div class="logo-item">
+						<img src="/hackathon/mariadb_logo.png" alt="MariaDB Logo" class="logo-image" />
+						<p class="image-caption">MariaDB werd gebruikt als lichtgewicht database-oplossing</p>
+					</div>
+				</div>
+
 				<p in:fly={{ y: 20, duration: 500, delay: 750 }}>
 					Mijn voornaamste taak bestond uit het ontwerpen en implementeren van de time-line
 					functionaliteit. Sinds we maar met 2 applicatieontwikkelaars zaten in onze groep en het
@@ -336,7 +351,6 @@
 		border: 2px solid var(--gray-light);
 	}
 
-	/* Revealed content styles - similar to JigsawGame */
 	.revealed-content {
 		background-color: white;
 		border-radius: 0.5rem;
@@ -367,6 +381,41 @@
 		width: 100%;
 		position: relative;
 		z-index: 10;
+	}
+
+	.logos-container {
+		display: flex;
+		justify-content: space-around;
+		gap: 1.5rem;
+		margin: 1.5rem auto;
+		max-width: 700px;
+	}
+
+	.logo-item {
+		flex: 1;
+		text-align: center;
+		background-color: white;
+		border-radius: 0.5rem;
+		overflow: hidden;
+		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+		padding: 1rem;
+		transition: transform 0.3s ease;
+	}
+
+	.logo-item:hover {
+		transform: translateY(-5px);
+	}
+
+	.logo-image {
+		width: 60%;
+		height: auto;
+		margin: 1.5rem auto;
+		display: block;
+		transition: transform 0.3s ease;
+	}
+
+	.logo-image:hover {
+		transform: scale(1.05);
 	}
 
 	@media (max-width: 768px) {

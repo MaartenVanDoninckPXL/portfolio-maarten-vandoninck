@@ -343,6 +343,20 @@
 					digitale oplossingen.
 				</p>
 
+				<div class="logos-container" in:scale={{ duration: 600, delay: 800, start: 0.9 }}>
+					<div class="logo-item">
+						<img src="/innovatieroute/AF-Logo.png" alt="Figma Logo" class="logo-image" />
+						<p class="image-caption">
+							Logo van het bedrijf Appfoundry, dat de innovatieroute begeleidde
+						</p>
+					</div>
+
+					<div class="logo-item">
+						<img src="/innovatieroute/Figma-logo.png" alt="UI/UX Design" class="logo-image" />
+						<p class="image-caption">Figma werd gebruikt voor het ontwerpen van onze UI/UX</p>
+					</div>
+				</div>
+
 				<h3 class="mt-6 text-xl font-bold" in:fly={{ y: 20, duration: 500, delay: 650 }}>Kern</h3>
 				<p in:fly={{ y: 20, duration: 500, delay: 700 }}>
 					De innovatieroute begon met een inleiding door Christoph van Ochten van Appfoundry, die
@@ -378,6 +392,7 @@
 					vaak met Figma hadden gewerkt, bleek het een toegankelijke tool te zijn, vooral nadat we
 					de basistechnieken hadden verworven.
 				</p>
+
 				<p in:fly={{ y: 20, duration: 500, delay: 900 }}>
 					Tijdens het ontwerpproces voerden wij regelmatig tests uit onderling en bij Christoph.
 					Hierdoor ontdekten wij dat bepaalde iconen niet onmiddellijk duidelijk waren of dat de
@@ -563,6 +578,41 @@
 		width: 100%;
 		position: relative;
 		z-index: 10;
+	}
+
+	.logos-container {
+		display: flex;
+		justify-content: space-around;
+		gap: 1.5rem;
+		margin: 1.5rem auto;
+		max-width: 700px;
+	}
+
+	.logo-item {
+		flex: 1;
+		text-align: center;
+		background-color: white;
+		border-radius: 0.5rem;
+		overflow: hidden;
+		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+		padding: 1rem;
+		transition: transform 0.3s ease;
+	}
+
+	.logo-item:hover {
+		transform: translateY(-5px);
+	}
+
+	.logo-image {
+		width: 60%;
+		height: auto;
+		margin: 1.5rem auto;
+		display: block;
+		transition: transform 0.3s ease;
+	}
+
+	.logo-image:hover {
+		transform: scale(1.05);
 	}
 
 	@media (max-width: 768px) {
