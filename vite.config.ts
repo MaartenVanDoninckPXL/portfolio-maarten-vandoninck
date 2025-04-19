@@ -5,5 +5,5 @@ import { defineConfig } from 'vite';
 export default defineConfig({
 	plugins: [tailwindcss(), sveltekit()],
 	publicDir: 'static',
-  	base: '/portfolio-maarten-vandoninck/',
+  	base: '/portfolio-maarten-vandoninck',
 });
