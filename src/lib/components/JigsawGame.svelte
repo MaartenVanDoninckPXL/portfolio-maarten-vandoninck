@@ -34,7 +34,7 @@
 			pieces = Array.from({ length: rows * cols }, (_, index) => {
 				const row = Math.floor(index / cols) + 1;
 				const col = (index % cols) + 1;
-				const imageUrl = `./jigsaw/row-${row}-column-${col}.jpg`;
+				const imageUrl = `${import.meta.env.BASE_URL}/jigsaw/row-${row}-column-${col}.jpg`;
 				return {
 					id: index,
 					correctIndex: index,
@@ -148,7 +148,7 @@
 
 				<div class="image-container" in:scale={{ duration: 600, delay: 800, start: 0.9 }}>
 					<img
-						src="./studiereis/PLX_AEC-min.jpg"
+						src="{import.meta.env.BASE_URL}/studiereis/PLX_AEC-min.jpg"
 						alt="PXL studenten bij het Ars Electronica Center"
 						class="content-image"
 					/>
@@ -174,7 +174,7 @@
 				</p>
 
 				<div class="image-container" in:scale={{ duration: 600, delay: 800, start: 0.9 }}>
-					<img src="./studiereis/AEC.webp" alt="Ars Electronica Center" class="content-image" />
+					<img src="{import.meta.env.BASE_URL}/studiereis/AEC.webp" alt="Ars Electronica Center" class="content-image" />
 					<p class="image-caption">Ars Electronica Center in Linz</p>
 				</div>
 
@@ -203,7 +203,7 @@
 
 				<div class="image-container" in:scale={{ duration: 600, delay: 800, start: 0.9 }}>
 					<img
-						src="./studiereis/FHOO.jpg"
+						src="{import.meta.env.BASE_URL}/studiereis/FHOO.jpg"
 						alt="Fachhochschule Oberösterreich"
 						class="content-image"
 					/>
@@ -230,7 +230,7 @@
 				</p>
 
 				<div class="image-container" in:scale={{ duration: 600, delay: 800, start: 0.9 }}>
-					<img src="./studiereis/Salzburg.jpg" alt="Salzburg stad" class="content-image" />
+					<img src="{import.meta.env.BASE_URL}/studiereis/Salzburg.jpg" alt="Salzburg stad" class="content-image" />
 					<p class="image-caption">Historisch centrum van Salzburg</p>
 				</div>
 
