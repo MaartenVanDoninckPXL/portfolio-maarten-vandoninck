@@ -14,6 +14,9 @@ const config = {
 		}),
 		paths: {
 			base: '/portfolio-maarten-vandoninck'
+		},
+		prerender: {
+			default: true
 		}
 	}
 };
