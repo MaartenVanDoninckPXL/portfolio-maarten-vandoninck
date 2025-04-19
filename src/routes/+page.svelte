@@ -106,7 +106,7 @@
 						</h2>
 
 						<div class="image-container mb-4 small-image" in:scale={{ duration: 600, delay: 700, start: 0.9 }}>
-							<img src="/introductie/foto.jpg" alt="Maarten Van Doninck" class="content-image" />
+							<img src="./introductie/foto.jpg" alt="Maarten Van Doninck" class="content-image" />
 							<p class="image-caption">Maarten Van Doninck</p>
 						</div>
 
@@ -375,7 +375,7 @@
 									in:scale={{ duration: 600, delay: 800, start: 0.9 }}
 								>
 									<img
-										src="/eindreflectie/x-factor.png"
+										src="./eindreflectie/x-factor.png"
 										alt="X-Factor diagram"
 										class="content-image"
 									/>
