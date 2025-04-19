@@ -23,7 +23,7 @@
 </script>
 
 <svelte:head>
-	<title>Word Search Puzzle | Maarten Van Doninck</title>
+	<title>Woordzoeker | Maarten Van Doninck</title>
 	<meta name="description" content="Solve an interactive word search puzzle" />
 </svelte:head>
 
@@ -39,18 +39,20 @@
 		<div class="container relative z-10 mx-auto my-5" in:fade={{ duration: 800 }}>
 			<header class="mb-8 text-center" in:fly={{ y: -20, duration: 800 }}>
 				<h1 class="text-gradient text-4xl font-bold">Word Search Puzzle</h1>
-				<p class="mt-3 text-gray-600">Find all the hidden words related to innovation and design</p>
+				<p class="mt-3 text-gray-600">
+					Vindt alle verborgen woorden gerelateerd aan innovatie en ontwerp
+				</p>
 			</header>
 
 			<div class="game-card" in:fly={{ y: 20, duration: 800, delay: 300 }}>
 				<div class="card-body">
 					<div class="game-instructions mb-6">
-						<h2 class="mb-2 text-xl font-bold">How to play:</h2>
+						<h2 class="mb-2 text-xl font-bold">Hoe moet ik spelen:</h2>
 						<ol class="ml-6 list-decimal">
-							<li>Find words from the list in the grid</li>
-							<li>Click and drag to select letters in a straight line</li>
-							<li>Words can be horizontal, vertical, or diagonal</li>
-							<li>Find all words to complete the challenge</li>
+							<li>Zoek woorden uit de lijst in het raster</li>
+							<li>Klik en sleep om letters te selecteren in een rechte lijn</li>
+							<li>Woorden kunnen horizontaal, verticaal of diagonaal lopen</li>
+							<li>Vind alle woorden om het spel te voltooien</li>
 						</ol>
 					</div>
 
@@ -60,7 +62,7 @@
 
 					<div class="mt-8 text-center">
 						<a href="/" class="back-button" in:fade={{ delay: 800, duration: 300 }}>
-							← Back to Home
+							← Ga Terug
 						</a>
 					</div>
 				</div>

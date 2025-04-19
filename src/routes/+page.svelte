@@ -4,7 +4,7 @@
 	import WordSearch from '$lib/components/WordSearch.svelte';
 	import { jigsawCompleted, memoryCompleted, wordSearchCompleted } from '$lib/stores';
 	import { onMount } from 'svelte';
-	import { fade, fly } from 'svelte/transition';
+	import { fade, fly, scale } from 'svelte/transition';
 
 	let visible = false;
 	let mouseX = 0;
@@ -12,6 +12,27 @@
 	let showFullStudiereisContent = false;
 	let showFullHackathonContent = false;
 	let showFullInnovationContent = false;
+
+	let particles = Array(30)
+		.fill()
+		.map(() => ({
+			x: Math.random() * 100,
+			y: Math.random() * 100,
+			size: Math.random() * 8 + 2,
+			speed: Math.random() * 2 + 1
+		}));
+
+	function animateParticles() {
+		if (!visible) return;
+
+		particles = particles.map((p) => ({
+			...p,
+			y: (p.y + p.speed / 10) % 100,
+			x: p.x + Math.sin(p.y / 10) * 0.2
+		}));
+
+		requestAnimationFrame(animateParticles);
+	}
 
 	function handleMouseMove(event: MouseEvent) {
 		mouseX = event.clientX / window.innerWidth;
@@ -33,6 +54,7 @@
 	onMount(() => {
 		visible = true;
 		window.addEventListener('mousemove', handleMouseMove);
+		animateParticles();
 
 		return () => {
 			window.removeEventListener('mousemove', handleMouseMove);
@@ -42,18 +64,29 @@
 
 <svelte:head>
 	<title>Maarten Van Doninck | Portfolio</title>
-	<meta
-		name="description"
-		content="ITalent Portfolio of Maarten Van Doninck - PXL Projects and Skills"
-	/>
+	<meta name="description" content="ITalent Portfolio of Maarten Van Doninck" />
 </svelte:head>
 
 <div class="hero-background" style="--mouse-x: {mouseX}; --mouse-y: {mouseY}">
+	<div class="animated-bg-overlay"></div>
+
+	{#each particles as particle}
+		<div
+			class="particle"
+			style="--x: {particle.x}%; --y: {particle.y}%; --size: {particle.size}px"
+		></div>
+	{/each}
+
 	<div class="bg-shape shape1"></div>
 	<div class="bg-shape shape2"></div>
 	<div class="bg-shape shape3"></div>
 	<div class="bg-shape shape4"></div>
 	<div class="bg-shape shape5"></div>
+	<div class="bg-shape shape6"></div>
+	<div class="bg-shape shape7"></div>
+	<div class="bg-shape shape8"></div>
+	<div class="bg-shape shape-pulse"></div>
+	<div class="bg-shape shape-spin"></div>
 
 	<div class="container relative z-10 mx-auto my-5">
 		{#if visible}
@@ -68,39 +101,39 @@
 			<div class="grid grid-cols-1 gap-8 md:grid-cols-2">
 				<div class="animated-card" in:fly={{ x: -20, duration: 800, delay: 600 }}>
 					<div class="card-body">
-						<h2 class="card-title mb-4 text-2xl font-bold">Welcome to my Portfolio</h2>
+						<h2 class="card-title mb-4 text-2xl font-bold">Welkom bij mijn Portfolio</h2>
 						<p class="mb-3">
-							This portfolio showcases my projects and skills developed during my ITalent trajectory
-							at PXL.
+							Dit portfolio toont mijn projecten en vaardigheden die ik heb ontwikkeld tijdens mijn
+							ITalent traject bij PXL.
 						</p>
 						<p class="mb-3">
-							Explore the different sections to learn more about my work, or try out the interactive
-							games I've created.
+							Verken de verschillende secties om meer te leren over mijn werk, of probeer de
+							interactieve spellen die ik heb gemaakt.
 						</p>
-						<p>The portfolio demonstrates my skills in:</p>
+						<p>Het portfolio demonstreert mijn vaardigheden in:</p>
 						<ul class="skill-list">
-							<li>SvelteKit development</li>
-							<li>TypeScript programming</li>
-							<li>Responsive design</li>
-							<li>Interactive web applications</li>
+							<li>SvelteKit ontwikkeling</li>
+							<li>TypeScript programmeren</li>
+							<li>Responsief ontwerp</li>
+							<li>Interactieve webapplicaties</li>
 						</ul>
 					</div>
 				</div>
 
 				<div class="animated-card" in:fly={{ x: 20, duration: 800, delay: 900 }}>
 					<div class="card-body">
-						<h2 class="card-title mb-4 text-2xl font-bold">Jigsaw Puzzle Game</h2>
+						<h2 class="card-title mb-4 text-2xl font-bold">Puzzelspel</h2>
 						<p class="mb-4">
-							Try out this interactive jigsaw puzzle! Click on pieces to select them, then click on
-							another piece to swap their positions. Can you solve it?
+							Probeer deze interactieve puzzel! Klik op stukken om ze te selecteren, klik daarna op
+							een ander stuk om ze van positie te wisselen. Kun je het oplossen?
 						</p>
 
 						<div class="game-instructions mb-4">
-							<h3 class="mb-2 text-lg font-semibold">How to play:</h3>
+							<h3 class="mb-2 text-lg font-semibold">Hoe moet ik spelen:</h3>
 							<ol class="ml-6 list-decimal">
-								<li>Click on a piece to select it</li>
-								<li>Click on another piece to swap positions</li>
-								<li>Continue until the image is complete</li>
+								<li>Klik op een stuk om het te selecteren</li>
+								<li>Klik op een ander stuk om posities te wisselen</li>
+								<li>Ga door tot de afbeelding compleet is</li>
 							</ol>
 						</div>
 
@@ -110,13 +143,13 @@
 								{#if $jigsawCompleted}
 									<div class="content-fade-overlay" class:hidden={showFullStudiereisContent}>
 										<button class="toggle-content-btn" on:click={toggleStudiereisContent}>
-											Show full story
+											Volledig verhaal tonen
 										</button>
 									</div>
 									{#if showFullStudiereisContent}
 										<div class="content-footer">
 											<button class="toggle-content-btn" on:click={toggleStudiereisContent}>
-												Hide content
+												Inhoud verbergen
 											</button>
 										</div>
 									{/if}
@@ -124,25 +157,25 @@
 							</div>
 						</div>
 						<div class="mt-4 text-center">
-							<a href="/games/jigsaw" class="play-link">Play full screen version →</a>
+							<a href="/games/jigsaw" class="play-link">Speel volledige schermversie →</a>
 						</div>
 					</div>
 				</div>
 
 				<div class="animated-card" in:fly={{ x: -20, duration: 800, delay: 1200 }}>
 					<div class="card-body">
-						<h2 class="card-title mb-4 text-2xl font-bold">Memory Game</h2>
+						<h2 class="card-title mb-4 text-2xl font-bold">Geheugenspel</h2>
 						<p class="mb-4">
-							Test your memory with this matching card game! Click on cards to flip them and find
-							matching pairs. Can you match all the cards?
+							Test je geheugen met dit kaartspel! Klik op kaarten om ze om te draaien en vind
+							bijpassende paren. Kun je alle kaarten matchen?
 						</p>
 
 						<div class="game-instructions mb-4">
-							<h3 class="mb-2 text-lg font-semibold">How to play:</h3>
+							<h3 class="mb-2 text-lg font-semibold">Hoe moet ik spelen:</h3>
 							<ol class="ml-6 list-decimal">
-								<li>Click on a card to flip it</li>
-								<li>Find matching pairs of cards</li>
-								<li>Match all pairs to complete the game</li>
+								<li>Klik op een kaart om deze om te draaien</li>
+								<li>Zoek naar bijpassende paren kaarten</li>
+								<li>Match alle paren om het spel te voltooien</li>
 							</ol>
 						</div>
 
@@ -152,13 +185,13 @@
 								{#if $memoryCompleted}
 									<div class="content-fade-overlay" class:hidden={showFullHackathonContent}>
 										<button class="toggle-content-btn" on:click={toggleHackathonContent}>
-											Show full story
+											Volledig verhaal tonen
 										</button>
 									</div>
 									{#if showFullHackathonContent}
 										<div class="content-footer">
 											<button class="toggle-content-btn" on:click={toggleHackathonContent}>
-												Hide content
+												Inhoud verbergen
 											</button>
 										</div>
 									{/if}
@@ -166,26 +199,27 @@
 							</div>
 						</div>
 						<div class="mt-4 text-center">
-							<a href="/games/memory" class="play-link">Play full screen version →</a>
+							<a href="/games/jigsaw" class="play-link">Speel volledige schermversie →</a>
 						</div>
 					</div>
 				</div>
 
 				<div class="animated-card" in:fly={{ x: 20, duration: 800, delay: 1500 }}>
 					<div class="card-body">
-						<h2 class="card-title mb-4 text-2xl font-bold">Word Search Puzzle</h2>
+						<h2 class="card-title mb-4 text-2xl font-bold">Woordzoeker</h2>
 						<p class="mb-4">
-							Challenge your word-finding skills with this interactive word search! Find words
-							related to innovation and design hidden in the grid. Can you find them all?
+							Daag je woordzoekervaardigheden uit met deze interactieve woordzoeker! Vind woorden
+							gerelateerd aan innovatie en ontwerp verstopt in het raster. Kun je ze allemaal
+							vinden?
 						</p>
 
 						<div class="game-instructions mb-4">
-							<h3 class="mb-2 text-lg font-semibold">How to play:</h3>
+							<h3 class="mb-2 text-lg font-semibold">Hoe moet ik spelen:</h3>
 							<ol class="ml-6 list-decimal">
-								<li>Find words from the list in the grid</li>
-								<li>Click and drag to select letters</li>
-								<li>Words can run in any direction</li>
-								<li>Find all words to complete the puzzle</li>
+								<li>Zoek woorden uit de lijst in het raster</li>
+								<li>Klik en sleep om letters te selecteren</li>
+								<li>Woorden kunnen in elke richting lopen</li>
+								<li>Vind alle woorden om de puzzel te voltooien</li>
 							</ol>
 						</div>
 
@@ -195,13 +229,13 @@
 								{#if $wordSearchCompleted}
 									<div class="content-fade-overlay" class:hidden={showFullInnovationContent}>
 										<button class="toggle-content-btn" on:click={toggleInnovationContent}>
-											Show full story
+											Volledig verhaal tonen
 										</button>
 									</div>
 									{#if showFullInnovationContent}
 										<div class="content-footer">
 											<button class="toggle-content-btn" on:click={toggleInnovationContent}>
-												Hide content
+												Inhoud verbergen
 											</button>
 										</div>
 									{/if}
@@ -209,12 +243,12 @@
 							</div>
 						</div>
 						<div class="mt-4 text-center">
-							<a href="/games/wordsearch" class="play-link">Play full screen version →</a>
+							<a href="/games/jigsaw" class="play-link">Speel volledige schermversie →</a>
 						</div>
 					</div>
 				</div>
 
-				{#if ($jigsawCompleted || $memoryCompleted || $wordSearchCompleted) && !($jigsawCompleted && $memoryCompleted && $wordSearchCompleted)}
+				{#if !($jigsawCompleted && $memoryCompleted && $wordSearchCompleted)}
 					<div class="col-span-full" in:fade={{ duration: 800, delay: 300 }}>
 						<div class="animated-card final-reflection-teaser">
 							<div class="card-body">
@@ -222,7 +256,7 @@
 									class="card-title mb-4 text-2xl font-bold"
 									in:fly={{ y: 20, duration: 500, delay: 400 }}
 								>
-									Unlocking Eindreflectie...
+									Eindreflectie ontgrendelen...
 								</h2>
 
 								<div class="progress-container">
@@ -238,26 +272,27 @@
 									></div>
 									<div class="progress-text">
 										{[$jigsawCompleted, $memoryCompleted, $wordSearchCompleted].filter(Boolean)
-											.length}/3 games completed
+											.length}/3 spellen voltooid
 									</div>
 								</div>
 
 								<p class="mt-4 text-center">
-									Complete all three games to reveal my final reflection on my ITalent journey.
+									Voltooi alle drie de spellen om mijn eindreflectie over mijn ITalent traject te
+									onthullen.
 								</p>
 
 								<div class="game-status">
 									<div class="status-item {$jigsawCompleted ? 'completed' : 'pending'}">
 										<span class="status-icon">{$jigsawCompleted ? '✓' : '○'}</span>
-										<span>Jigsaw Puzzle</span>
+										<span>Puzzelspel</span>
 									</div>
 									<div class="status-item {$memoryCompleted ? 'completed' : 'pending'}">
 										<span class="status-icon">{$memoryCompleted ? '✓' : '○'}</span>
-										<span>Memory Game</span>
+										<span>Geheugenspel</span>
 									</div>
 									<div class="status-item {$wordSearchCompleted ? 'completed' : 'pending'}">
 										<span class="status-icon">{$wordSearchCompleted ? '✓' : '○'}</span>
-										<span>Word Search</span>
+										<span>Woordzoeker</span>
 									</div>
 								</div>
 							</div>
@@ -313,6 +348,17 @@
 									aan engagement en empathie, wil ik blijven koesteren in mijn verdere ontwikkeling.
 								</p>
 
+								<div class="image-container" in:scale={{ duration: 600, delay: 800, start: 0.9 }}>
+									<img
+										src="/eindreflectie/x-factor.png"
+										alt="X-Factor diagram"
+										class="content-image"
+									/>
+									<p class="image-caption">
+										Mijn X-Factor: combinatie van kennis, vaardigheden en attitude
+									</p>
+								</div>
+
 								<p in:fly={{ y: 20, duration: 500, delay: 900 }}>
 									Ter bevordering van mijn persoonlijke en professionele ontwikkeling ben ik
 									voornemens mij verder te verdiepen in opkomende technologieën, onder andere door
@@ -357,14 +403,102 @@
 
 	@keyframes gradient {
 		0% {
-			background-position: 0% 50%;
+			background-position: 0% 25%;
+		}
+		25% {
+			background-position: 50% 0%;
 		}
 		50% {
 			background-position: 100% 50%;
 		}
-		100% {
-			background-position: 0% 50%;
+		75% {
+			background-position: 50% 100%;
 		}
+		100% {
+			background-position: 0% 25%;
+		}
+	}
+
+	.hero-background::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: radial-gradient(ellipse at 50% 0%, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+		opacity: 0.8;
+		z-index: 2;
+		pointer-events: none;
+		animation: glowPulse 8s ease-in-out infinite alternate;
+	}
+
+	.container {
+		position: relative;
+		z-index: 10;
+	}
+
+	.bg-shape {
+		position: absolute;
+		opacity: 0.06;
+		background-repeat: no-repeat;
+		background-size: contain;
+		will-change: transform;
+		transition: transform 0.3s ease-out;
+		filter: blur(1px);
+		z-index: 3;
+	}
+
+	@keyframes glowPulse {
+		0% {
+			opacity: 0.5;
+			transform: translateY(-20px) scale(0.95);
+		}
+		100% {
+			opacity: 0.8;
+			transform: translateY(0) scale(1.15);
+		}
+	}
+
+	.animated-bg-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: linear-gradient(125deg, rgba(59, 130, 246, 0.03) 0%, rgba(16, 185, 129, 0.03) 100%);
+		background-size: 200% 200%;
+		animation: shiftBackground 12s ease infinite;
+		z-index: 1;
+		pointer-events: none;
+	}
+
+	@keyframes shiftBackground {
+		0% {
+			background-position: 0% 0%;
+		}
+		50% {
+			background-position: 100% 100%;
+		}
+		100% {
+			background-position: 0% 0%;
+		}
+	}
+
+	.particle {
+		position: absolute;
+		top: var(--y);
+		left: var(--x);
+		width: var(--size);
+		height: var(--size);
+		border-radius: 50%;
+		background: linear-gradient(180deg, var(--primary), transparent);
+		opacity: 0.1;
+		filter: blur(2px);
+		z-index: 2;
+		pointer-events: none;
+		transform: translate3d(0, 0, 0);
+		will-change: transform;
 	}
 
 	.bg-shape {
@@ -385,7 +519,7 @@
 		border-radius: 53% 47% 32% 68% / 27% 74% 26% 73%;
 		background: var(--primary);
 		animation: float 12s ease-in-out infinite;
-		transform: translate(calc(var(--mouse-x, 0.5) * -30px), calc(var(--mouse-y, 0.5) * -30px))
+		transform: translate(calc(var(--mouse-x, 0.5) * -40px), calc(var(--mouse-y, 0.5) * -40px))
 			rotate(15deg);
 	}
 
@@ -397,7 +531,7 @@
 		border-radius: 39% 61% 70% 30% / 61% 40% 60% 39%;
 		background: var(--secondary);
 		animation: float 15s ease-in-out infinite reverse;
-		transform: translate(calc(var(--mouse-x, 0.5) * 25px), calc(var(--mouse-y, 0.5) * -25px))
+		transform: translate(calc(var(--mouse-x, 0.5) * 35px), calc(var(--mouse-y, 0.5) * -35px))
 			rotate(-10deg);
 	}
 
@@ -437,18 +571,106 @@
 			rotate(60deg);
 	}
 
+	.shape6 {
+		top: 70%;
+		right: 20%;
+		width: 160px;
+		height: 160px;
+		border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
+		background: var(--primary);
+		opacity: 0.04;
+		animation: float 16s ease-in-out infinite 0.5s;
+		transform: translate(calc(var(--mouse-x, 0.5) * -45px), calc(var(--mouse-y, 0.5) * 15px))
+			rotate(25deg);
+	}
+
+	.shape7 {
+		top: 25%;
+		left: 38%;
+		width: 100px;
+		height: 100px;
+		border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+		background: var(--secondary);
+		opacity: 0.03;
+		animation: float 13s ease-in-out infinite 1s reverse;
+		transform: translate(calc(var(--mouse-x, 0.5) * 30px), calc(var(--mouse-y, 0.5) * -35px))
+			rotate(-15deg);
+	}
+
+	.shape8 {
+		top: 60%;
+		left: 30%;
+		width: 140px;
+		height: 140px;
+		border-radius: 50%;
+		background: linear-gradient(120deg, var(--primary), var(--secondary));
+		opacity: 0.04;
+		animation: float 14s ease-in-out infinite 2s;
+		transform: translate(calc(var(--mouse-x, 0.5) * -20px), calc(var(--mouse-y, 0.5) * 40px))
+			scale(var(--mouse-scale, 1));
+	}
+
+	.shape-pulse {
+		bottom: 30%;
+		right: 40%;
+		width: 120px;
+		height: 120px;
+		border-radius: 46% 54% 43% 57% / 51% 57% 43% 49%;
+		background: var(--primary);
+		opacity: 0.03;
+		animation: pulse 8s ease-in-out infinite;
+	}
+
+	.shape-spin {
+		top: 45%;
+		right: 25%;
+		width: 80px;
+		height: 80px;
+		border-radius: 40% 60% 70% 30% / 40% 50% 50% 60%;
+		background: linear-gradient(45deg, var(--primary), var(--secondary));
+		opacity: 0.03;
+		animation: spin 20s linear infinite;
+	}
+
 	@keyframes float {
 		0% {
-			transform: translate(calc(var(--mouse-x, 0.5) * -20px), calc(var(--mouse-y, 0.5) * -20px))
-				rotate(0deg);
+			transform: translate(calc(var(--mouse-x, 0.5) * -30px), calc(var(--mouse-y, 0.5) * -30px))
+				rotate(0deg) scale(1);
 		}
 		50% {
-			transform: translate(calc(var(--mouse-x, 0.5) * 20px), calc(var(--mouse-y, 0.5) * 20px))
-				rotate(10deg);
+			transform: translate(calc(var(--mouse-x, 0.5) * 30px), calc(var(--mouse-y, 0.5) * 30px))
+				rotate(15deg) scale(1.05);
 		}
 		100% {
-			transform: translate(calc(var(--mouse-x, 0.5) * -20px), calc(var(--mouse-y, 0.5) * -20px))
+			transform: translate(calc(var(--mouse-x, 0.5) * -30px), calc(var(--mouse-y, 0.5) * -30px))
+				rotate(0deg) scale(1);
+		}
+	}
+
+	@keyframes spin {
+		0% {
+			transform: translate(calc(var(--mouse-x, 0.5) * -10px), calc(var(--mouse-y, 0.5) * -10px))
 				rotate(0deg);
+		}
+		100% {
+			transform: translate(calc(var(--mouse-x, 0.5) * 10px), calc(var(--mouse-y, 0.5) * 10px))
+				rotate(360deg);
+		}
+	}
+
+	@keyframes pulse {
+		0% {
+			transform: scale(1) translate(0, 0);
+			opacity: 0.02;
+		}
+		50% {
+			transform: scale(1.2)
+				translate(calc(var(--mouse-x, 0.5) * 15px), calc(var(--mouse-y, 0.5) * 15px));
+			opacity: 0.04;
+		}
+		100% {
+			transform: scale(1) translate(0, 0);
+			opacity: 0.02;
 		}
 	}
 
@@ -639,11 +861,13 @@
 		}
 
 		.bg-shape {
-			opacity: 0.04;
+			opacity: 0.03;
 		}
 
 		.shape1,
-		.shape5 {
+		.shape5,
+		.shape7,
+		.shape-spin {
 			display: none;
 		}
 	}
@@ -783,5 +1007,32 @@
 		height: 3px;
 		background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
 		border-radius: 1.5px;
+	}
+
+	.image-container {
+		margin: 2rem 0;
+		border-radius: 0.5rem;
+		overflow: hidden;
+		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	}
+
+	.content-image {
+		width: 100%;
+		height: auto;
+		display: block;
+		transition: transform 0.3s ease;
+	}
+
+	.content-image:hover {
+		transform: scale(1.02);
+	}
+
+	.image-caption {
+		padding: 0.75rem;
+		text-align: center;
+		font-style: italic;
+		color: var(--gray);
+		background-color: #f9fafb;
+		margin-bottom: 0;
 	}
 </style>

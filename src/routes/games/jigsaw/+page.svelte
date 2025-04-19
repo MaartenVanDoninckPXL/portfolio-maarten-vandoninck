@@ -23,7 +23,7 @@
 </script>
 
 <svelte:head>
-	<title>Jigsaw Puzzle Game | Maarten Van Doninck</title>
+	<title>Puzzelspel | Maarten Van Doninck</title>
 	<meta name="description" content="Play an interactive jigsaw puzzle game" />
 </svelte:head>
 
@@ -38,18 +38,18 @@
 	{#if visible}
 		<div class="container relative z-10 mx-auto my-5" in:fade={{ duration: 800 }}>
 			<header class="mb-8 text-center" in:fly={{ y: -20, duration: 800 }}>
-				<h1 class="text-gradient text-4xl font-bold">Jigsaw Puzzle Game</h1>
-				<p class="mt-3 text-gray-600">Rearrange the pieces to complete the image</p>
+				<h1 class="text-gradient text-4xl font-bold">Puzzelspel</h1>
+				<p class="mt-3 text-gray-600">Verplaats de stukken om de afbeelding te voltooien</p>
 			</header>
 
 			<div class="game-card" in:fly={{ y: 20, duration: 800, delay: 300 }}>
 				<div class="card-body">
 					<div class="game-instructions mb-6">
-						<h2 class="mb-2 text-xl font-bold">How to play:</h2>
+						<h2 class="mb-2 text-xl font-bold">Hoe moet ik spelen:</h2>
 						<ol class="ml-6 list-decimal">
-							<li>Click on a piece to select it</li>
-							<li>Click on another piece to swap positions</li>
-							<li>Continue until the image is complete</li>
+							<li>Klik op een stuk om het te selecteren</li>
+							<li>Klik op een ander stuk om posities te wisselen</li>
+							<li>Ga door tot de afbeelding compleet is</li>
 						</ol>
 					</div>
 
@@ -59,7 +59,7 @@
 
 					<div class="mt-8 text-center">
 						<a href="/" class="back-button" in:fade={{ delay: 800, duration: 300 }}>
-							← Back to Home
+							← Ga Terug
 						</a>
 					</div>
 				</div>

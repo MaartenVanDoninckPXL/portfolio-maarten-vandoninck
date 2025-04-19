@@ -23,7 +23,7 @@
 </script>
 
 <svelte:head>
-	<title>Memory Game | Maarten Van Doninck</title>
+	<title>Geheugenspel | Maarten Van Doninck</title>
 	<meta name="description" content="Play an interactive memory matching game" />
 </svelte:head>
 
@@ -38,18 +38,18 @@
 	{#if visible}
 		<div class="container relative z-10 mx-auto my-5" in:fade={{ duration: 800 }}>
 			<header class="mb-8 text-center" in:fly={{ y: -20, duration: 800 }}>
-				<h1 class="text-gradient text-4xl font-bold">Memory Game</h1>
-				<p class="mt-3 text-gray-600">Find matching pairs to complete the challenge</p>
+				<h1 class="text-gradient text-4xl font-bold">Geheugenspel</h1>
+                <p class="mt-3 text-gray-600">Vind overeenkomende paren om het spel te voltooien</p>
 			</header>
 
 			<div class="game-card" in:fly={{ y: 20, duration: 800, delay: 300 }}>
 				<div class="card-body">
 					<div class="game-instructions mb-6">
-						<h2 class="mb-2 text-xl font-bold">How to play:</h2>
+						<h2 class="mb-2 text-xl font-bold">Hoe moet ik spelen:</h2>
 						<ol class="ml-6 list-decimal">
-							<li>Click on a card to flip it</li>
-							<li>Find matching pairs of cards</li>
-							<li>Match all pairs to complete the game</li>
+                            <li>Klik op een kaart om deze om te draaien</li>
+                            <li>Zoek naar bijpassende paren</li>
+                            <li>Match alle paren om het spel te voltooien</li>
 						</ol>
 					</div>
 
@@ -59,7 +59,7 @@
 
 					<div class="mt-8 text-center">
 						<a href="/" class="back-button" in:fade={{ delay: 800, duration: 300 }}>
-							← Back to Home
+							← Ga Terug
 						</a>
 					</div>
 				</div>
