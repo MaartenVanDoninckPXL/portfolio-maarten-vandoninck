@@ -14,7 +14,7 @@
 	let showFullInnovationContent = false;
 
 	let particles = Array(30)
-		.fill()
+		.fill(null)
 		.map(() => ({
 			x: Math.random() * 100,
 			y: Math.random() * 100,
@@ -101,19 +101,41 @@
 			<div class="grid grid-cols-1 gap-8 md:grid-cols-2">
 				<div class="animated-card" in:fly={{ x: -20, duration: 800, delay: 600 }}>
 					<div class="card-body">
-						<h2 class="card-title mb-4 text-2xl font-bold">Welkom bij mijn Portfolio</h2>
+						<h2 class="card-title mb-4 text-2xl font-bold">
+							Welkom bij de creatieve uitwerking van mijn Portfolio
+						</h2>
+
+						<div class="image-container mb-4 small-image" in:scale={{ duration: 600, delay: 700, start: 0.9 }}>
+							<img src="/introductie/foto.jpg" alt="Maarten Van Doninck" class="content-image" />
+							<p class="image-caption">Maarten Van Doninck</p>
+						</div>
+
 						<p class="mb-3">
-							Dit portfolio toont mijn projecten en vaardigheden die ik heb ontwikkeld tijdens mijn
-							ITalent traject bij PXL.
+							Dit portfolio presenteert de projecten, ervaringen en vaardigheden die ik heb
+							ontwikkeld tijdens mijn ITalent traject bij PXL. Het vormt een interactieve weergave
+							van mijn groei als IT-professional.
 						</p>
 						<p class="mb-3">
-							Verken de verschillende secties om meer te leren over mijn werk, of probeer de
-							interactieve spellen die ik heb gemaakt.
+							De verschillende secties van het portfolio zijn verborgen achter interactieve spellen.
+							Door een spel te spelen, kun je de inhoud van dat specifieke onderdeel ontgrendelen.
+							Wanneer alle spellen zijn uitgespeeld, wordt mijn eindreflectie onthuld.
 						</p>
-						<p>Het portfolio demonstreert mijn vaardigheden in:</p>
+						<p class="mb-3">
+							Deze website en de mini spellen zijn volledig door mij ontwikkeld met behulp van code
+							frameworks en wordt gehost via GitHub Pages.
+						</p>
+						<p class="mb-3">
+							De volledige broncode van deze website is beschikbaar op mijn GitHub-pagina: <a
+								href="https://github.com/MaartenVanDoninckPXL/portfolio-maarten-vandoninck"
+								target="_blank"
+								rel="noreferrer noopener"
+								>https://github.com/MaartenVanDoninckPXL/portfolio-maarten-vandoninck</a
+							>
+						</p>
+						<p>Het portfolio toont mijn technische vaardigheden in:</p>
 						<ul class="skill-list">
-							<li>SvelteKit ontwikkeling</li>
-							<li>TypeScript programmeren</li>
+							<li>Web ontwikkeling met Svelte als framework</li>
+							<li>TypeScript</li>
 							<li>Responsief ontwerp</li>
 							<li>Interactieve webapplicaties</li>
 						</ul>

@@ -1,38 +1,22 @@
-# sv
+# Portfolio Maarten Van Doninck
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+![Maarten Van Doninck](static/introductie/foto.jpg)
 
-## Creating a project
+## Welkom bij de creatieve uitwerking van mijn Portfolio
 
-If you're seeing this, you've probably already done this step. Congrats!
+Dit portfolio presenteert de projecten, ervaringen en vaardigheden die ik heb ontwikkeld tijdens mijn ITalent traject bij PXL. Het vormt een interactieve weergave van mijn groei als IT-professional.
 
-```bash
-# create a new project in the current directory
-npx sv create
+De verschillende secties van het portfolio zijn verborgen achter interactieve spellen. Door een spel te spelen, kun je de inhoud van dat specifieke onderdeel ontgrendelen. Wanneer alle spellen zijn uitgespeeld, wordt mijn eindreflectie onthuld.
 
-# create a new project in my-app
-npx sv create my-app
-```
+Deze website en de mini spellen zijn volledig door mij ontwikkeld met behulp van code frameworks en wordt gehost via GitHub Pages.
 
-## Developing
+De volledige broncode van deze website is beschikbaar op mijn GitHub-pagina: [https://github.com/MaartenVanDoninckPXL/portfolio-maarten-vandoninck](https://github.com/MaartenVanDoninckPXL/portfolio-maarten-vandoninck)
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Technische vaardigheden
 
-```bash
-npm run dev
+Het portfolio toont mijn technische vaardigheden in:
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+- Web ontwikkeling met Svelte als framework
+- TypeScript
+- Responsief ontwerp
+- Interactieve webapplicaties
