@@ -16,7 +16,7 @@ const config = {
 			base: '/portfolio-maarten-vandoninck'
 		},
 		prerender: {
-			default: true
+			entries: []
 		}
 	}
 };
