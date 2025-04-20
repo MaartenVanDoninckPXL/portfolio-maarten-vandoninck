@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { flip } from 'svelte/animate';
+	import { assets } from '$app/paths';
 	import { memoryCompleted, memoryCards, memoryInitialized } from '$lib/stores';
 	import type { MemoryCard } from '../models/MemoryCard';
 	import { fade, fly, scale } from 'svelte/transition';
@@ -189,14 +190,14 @@
 
 				<div class="logos-container" in:scale={{ duration: 600, delay: 800, start: 0.9 }}>
 					<div class="logo-item">
-						<img src="{import.meta.env.BASE_URL}/hackathon/Vue_js_logo.png" alt="Vue.js Logo" class="logo-image" />
+						<img src="${assets}/hackathon/Vue_js_logo.png" alt="Vue.js Logo" class="logo-image" />
 						<p class="image-caption">
 							Vue.js werd gebruikt als front-end framework voor de applicatie
 						</p>
 					</div>
 
 					<div class="logo-item">
-						<img src="{import.meta.env.BASE_URL}/hackathon/mariadb_logo.png" alt="MariaDB Logo" class="logo-image" />
+						<img src="${assets}/hackathon/mariadb_logo.png" alt="MariaDB Logo" class="logo-image" />
 						<p class="image-caption">MariaDB werd gebruikt als lichtgewicht database-oplossing</p>
 					</div>
 				</div>

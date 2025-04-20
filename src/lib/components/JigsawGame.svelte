@@ -211,7 +211,7 @@
 
 				<div class="image-container" in:scale={{ duration: 600, delay: 800, start: 0.9 }}>
 					<img
-						src="{import.meta.env.BASE_URL}/studiereis/PLX_AEC-min.jpg"
+						src="${assets}/studiereis/PLX_AEC-min.jpg"
 						alt="PXL studenten bij het Ars Electronica Center"
 						class="content-image"
 					/>
@@ -238,7 +238,7 @@
 
 				<div class="image-container" in:scale={{ duration: 600, delay: 800, start: 0.9 }}>
 					<img
-						src="{import.meta.env.BASE_URL}/studiereis/AEC.webp"
+						src="${assets}/studiereis/AEC.webp"
 						alt="Ars Electronica Center"
 						class="content-image"
 					/>
@@ -270,7 +270,7 @@
 
 				<div class="image-container" in:scale={{ duration: 600, delay: 800, start: 0.9 }}>
 					<img
-						src="{import.meta.env.BASE_URL}/studiereis/FHOO.jpg"
+						src="${assets}/studiereis/FHOO.jpg"
 						alt="Fachhochschule Oberösterreich"
 						class="content-image"
 					/>
@@ -298,7 +298,7 @@
 
 				<div class="image-container" in:scale={{ duration: 600, delay: 800, start: 0.9 }}>
 					<img
-						src="{import.meta.env.BASE_URL}/studiereis/Salzburg.jpg"
+						src="${assets}/studiereis/Salzburg.jpg"
 						alt="Salzburg stad"
 						class="content-image"
 					/>

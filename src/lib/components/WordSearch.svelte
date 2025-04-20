@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { wordSearchCompleted, wordSearchPuzzle, wordSearchInitialized } from '$lib/stores';
 	import type { WordSearchCell, WordToFind, WordSearchPuzzle } from '../models/WordSearch';
+	import { assets } from '$app/paths';
 	import { fade, fly, scale } from 'svelte/transition';
 
 	let grid: WordSearchCell[][] = [];
@@ -345,14 +346,14 @@
 
 				<div class="logos-container" in:scale={{ duration: 600, delay: 800, start: 0.9 }}>
 					<div class="logo-item">
-						<img src="{import.meta.env.BASE_URL}/innovatieroute/AF-Logo.png" alt="Figma Logo" class="logo-image" />
+						<img src="${assets}/innovatieroute/AF-Logo.png" alt="Figma Logo" class="logo-image" />
 						<p class="image-caption">
 							Logo van het bedrijf Appfoundry, dat de innovatieroute begeleidde
 						</p>
 					</div>
 
 					<div class="logo-item">
-						<img src="{import.meta.env.BASE_URL}/innovatieroute/Figma-logo.png" alt="UI/UX Design" class="logo-image" />
+						<img src="${assets}/innovatieroute/Figma-logo.png" alt="UI/UX Design" class="logo-image" />
 						<p class="image-caption">Figma werd gebruikt voor het ontwerpen van onze UI/UX</p>
 					</div>
 				</div>
