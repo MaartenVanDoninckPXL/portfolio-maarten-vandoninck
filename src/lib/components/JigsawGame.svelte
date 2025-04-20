@@ -26,14 +26,50 @@
 		}, 300);
 	}
 
+	function loadPuzzleState() {
+		try {
+			const savedPieces = localStorage.getItem('jigsawPieces');
+			const savedCompleted = localStorage.getItem('jigsawCompleted');
+			const savedInitialized = localStorage.getItem('jigsawInitialized');
+
+			if (savedPieces) {
+				jigsawPieces.set(JSON.parse(savedPieces));
+			}
+
+			if (savedCompleted === 'true') {
+				jigsawCompleted.set(true);
+			}
+
+			if (savedInitialized === 'true') {
+				jigsawInitialized.set(true);
+			}
+		} catch (error) {
+			console.error('Error loading puzzle state:', error);
+		}
+	}
+
+	function savePuzzleState() {
+		try {
+			localStorage.setItem('jigsawPieces', JSON.stringify($jigsawPieces));
+			localStorage.setItem('jigsawCompleted', $jigsawCompleted.toString());
+			localStorage.setItem('jigsawInitialized', $jigsawInitialized.toString());
+		} catch (error) {
+			console.error('Error saving puzzle state:', error);
+		}
+	}
+
 	onMount(() => {
 		visible = true;
+		loadPuzzleState();
 
 		if (!$jigsawInitialized) {
 			pieces = Array.from({ length: rows * cols }, (_, index) => {
 				const row = Math.floor(index / cols) + 1;
 				const col = (index % cols) + 1;
-				const imageUrl = `${import.meta.env.BASE_URL}/jigsaw/row-${row}-column-${col}.jpg`;
+				const imageUrl = new URL(
+					`${import.meta.env.BASE_URL}/jigsaw/row-${row}-column-${col}.jpg`,
+					window.location.origin
+				).href;
 				return {
 					id: index,
 					correctIndex: index,
@@ -44,8 +80,8 @@
 			shuffled = [...pieces].sort(() => Math.random() - 0.5);
 			jigsawPieces.set(shuffled);
 			jigsawInitialized.set(true);
-
 			jigsawCompleted.set(false);
+			savePuzzleState();
 		} else {
 			shuffled = $jigsawPieces;
 		}
