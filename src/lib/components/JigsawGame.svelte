@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { flip } from 'svelte/animate';
 	import { jigsawCompleted, jigsawPieces, jigsawInitialized } from '$lib/stores';
+	import { assets } from '$app/paths';
 	import type { Piece } from '../models/Piece';
 	import { fade, fly, scale } from 'svelte/transition';
 
@@ -60,8 +61,7 @@
 	}
 
 	function getImageUrl(row: number, col: number): string {
-		const base = import.meta.env.BASE_URL || '';
-		return `${base}/jigsaw/row-${row}-column-${col}.jpg`;
+		return `${assets}/jigsaw/row-${row}-column-${col}.jpg`;
 	}
 
 	onMount(() => {
@@ -150,27 +150,11 @@
 		imagesFailedToLoad++;
 
 		const imgElement = new Image();
-		imgElement.onload = () => {
-			imagesLoaded++;
-			if (imagesLoaded === rows * cols) {
-				allImagesLoaded = true;
-			}
-		};
-		imgElement.onerror = () => {
-			console.error(`Second attempt to load image failed: ${imageUrl}`);
-		};
-
-		const base = import.meta.env.BASE_URL || '';
-		if (imageUrl.includes('/jigsaw/row-')) {
-			const match = imageUrl.match(/\/jigsaw\/row-(\d+)-column-(\d+)\.jpg/);
-			if (match) {
-				const row = match[1];
-				const col = match[2];
-				imgElement.src = `${base}/jigsaw/row-${row}-column-${col}.jpg`;
-			} else {
-				imgElement.src = imageUrl;
-			}
-		}
+		imgElement.onload = () => handleImageLoad();
+		imgElement.onerror = () => console.error(`Second attempt failed: ${imageUrl}`);
+		imgElement.src = imageUrl.includes('/jigsaw/')
+			? imageUrl.replace(import.meta.env.BASE_URL, assets)
+			: imageUrl;
 	}
 
 	$: gridStyle = `
