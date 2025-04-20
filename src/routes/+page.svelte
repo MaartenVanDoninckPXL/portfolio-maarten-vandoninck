@@ -3,6 +3,7 @@
 	import JigsawGame from '$lib/components/JigsawGame.svelte';
 	import MemoryGame from '$lib/components/MemoryGame.svelte';
 	import WordSearch from '$lib/components/WordSearch.svelte';
+	import { assets } from '$app/paths';
 	import { jigsawCompleted, memoryCompleted, wordSearchCompleted } from '$lib/stores';
 	import { onMount } from 'svelte';
 	import { fade, fly, scale } from 'svelte/transition';
@@ -53,6 +54,10 @@
 	}
 
 	onMount(() => {
+		localStorage.removeItem('jigsawPieces');
+		localStorage.removeItem('jigsawCompleted');
+		localStorage.removeItem('jigsawInitialized');
+
 		visible = true;
 		window.addEventListener('mousemove', handleMouseMove);
 		animateParticles();
@@ -106,8 +111,15 @@
 							Welkom bij de creatieve uitwerking van mijn Portfolio
 						</h2>
 
-						<div class="image-container mb-4 small-image" in:scale={{ duration: 600, delay: 700, start: 0.9 }}>
-							<img src="{import.meta.env.BASE_URL}/introductie/foto.jpg" alt="Maarten Van Doninck" class="content-image" />
+						<div
+							class="image-container small-image mb-4"
+							in:scale={{ duration: 600, delay: 700, start: 0.9 }}
+						>
+							<img
+								src="{import.meta.env.BASE_URL}/introductie/foto.jpg"
+								alt="Maarten Van Doninck"
+								class="content-image"
+							/>
 							<p class="image-caption">Maarten Van Doninck</p>
 						</div>
 
@@ -376,7 +388,7 @@
 									in:scale={{ duration: 600, delay: 800, start: 0.9 }}
 								>
 									<img
-										src="{import.meta.env.BASE_URL}/eindreflectie/x-factor.png"
+										src={`${assets}/eindreflectie/x-factor.png`}
 										alt="X-Factor diagram"
 										class="content-image"
 									/>
