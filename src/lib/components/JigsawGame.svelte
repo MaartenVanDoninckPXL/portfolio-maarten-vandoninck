@@ -27,7 +27,6 @@
 	}
 
 	onMount(() => {
-		jigsawCompleted.set(false);
 		visible = true;
 
 		if (!$jigsawInitialized) {
@@ -45,6 +44,8 @@
 			shuffled = [...pieces].sort(() => Math.random() - 0.5);
 			jigsawPieces.set(shuffled);
 			jigsawInitialized.set(true);
+
+			jigsawCompleted.set(false);
 		} else {
 			shuffled = $jigsawPieces;
 		}
@@ -174,7 +175,11 @@
 				</p>
 
 				<div class="image-container" in:scale={{ duration: 600, delay: 800, start: 0.9 }}>
-					<img src="{import.meta.env.BASE_URL}/studiereis/AEC.webp" alt="Ars Electronica Center" class="content-image" />
+					<img
+						src="{import.meta.env.BASE_URL}/studiereis/AEC.webp"
+						alt="Ars Electronica Center"
+						class="content-image"
+					/>
 					<p class="image-caption">Ars Electronica Center in Linz</p>
 				</div>
 
@@ -230,7 +235,11 @@
 				</p>
 
 				<div class="image-container" in:scale={{ duration: 600, delay: 800, start: 0.9 }}>
-					<img src="{import.meta.env.BASE_URL}/studiereis/Salzburg.jpg" alt="Salzburg stad" class="content-image" />
+					<img
+						src="{import.meta.env.BASE_URL}/studiereis/Salzburg.jpg"
+						alt="Salzburg stad"
+						class="content-image"
+					/>
 					<p class="image-caption">Historisch centrum van Salzburg</p>
 				</div>
 

@@ -2,6 +2,7 @@
 	import WordSearchGame from '$lib/components/WordSearch.svelte';
 	import { fade, fly } from 'svelte/transition';
 	import { onMount } from 'svelte';
+	import { base } from '$app/paths';
 
 	let visible = false;
 	let mouseX = 0;
@@ -61,7 +62,7 @@
 					</div>
 
 					<div class="mt-8 text-center">
-						<a href="/" class="back-button" in:fade={{ delay: 800, duration: 300 }}>
+						<a href="{base}/" class="back-button" in:fade={{ delay: 800, duration: 300 }}>
 							← Ga Terug
 						</a>
 					</div>

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import JigsawGame from '$lib/components/JigsawGame.svelte';
 	import MemoryGame from '$lib/components/MemoryGame.svelte';
 	import WordSearch from '$lib/components/WordSearch.svelte';
@@ -179,7 +180,7 @@
 							</div>
 						</div>
 						<div class="mt-4 text-center">
-							<a href="/games/jigsaw" class="play-link">Speel volledige schermversie →</a>
+							<a href="{base}/games/jigsaw" class="play-link">Speel volledige schermversie →</a>
 						</div>
 					</div>
 				</div>
@@ -221,7 +222,7 @@
 							</div>
 						</div>
 						<div class="mt-4 text-center">
-							<a href="/games/memory" class="play-link">Speel volledige schermversie →</a>
+							<a href="{base}/games/memory" class="play-link">Speel volledige schermversie →</a>
 						</div>
 					</div>
 				</div>
@@ -265,7 +266,7 @@
 							</div>
 						</div>
 						<div class="mt-4 text-center">
-							<a href="/games/wordsearch" class="play-link">Speel volledige schermversie →</a>
+							<a href="{base}/games/wordsearch" class="play-link">Speel volledige schermversie →</a>
 						</div>
 					</div>
 				</div>
