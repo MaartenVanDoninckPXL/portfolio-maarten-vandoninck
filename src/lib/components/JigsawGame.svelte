@@ -13,6 +13,7 @@
 	let allImagesLoaded = false;
 	let visible = false;
 	let showCelebration = false;
+	let imagesFailedToLoad = 0;
 
 	const unsubscribe = jigsawPieces.subscribe((value) => {
 		if (value && value.length > 0) {
@@ -58,6 +59,11 @@
 		}
 	}
 
+	function getImageUrl(row: number, col: number): string {
+		const base = import.meta.env.BASE_URL || '';
+		return `${base}/jigsaw/row-${row}-column-${col}.jpg`;
+	}
+
 	onMount(() => {
 		visible = true;
 		loadPuzzleState();
@@ -66,14 +72,10 @@
 			pieces = Array.from({ length: rows * cols }, (_, index) => {
 				const row = Math.floor(index / cols) + 1;
 				const col = (index % cols) + 1;
-				const imageUrl = new URL(
-					`${import.meta.env.BASE_URL}/jigsaw/row-${row}-column-${col}.jpg`,
-					window.location.origin
-				).href;
 				return {
 					id: index,
 					correctIndex: index,
-					imageUrl
+					imageUrl: getImageUrl(row, col)
 				};
 			});
 
@@ -83,7 +85,21 @@
 			jigsawCompleted.set(false);
 			savePuzzleState();
 		} else {
-			shuffled = $jigsawPieces;
+			shuffled = $jigsawPieces.map((piece) => {
+				if (piece.imageUrl && piece.imageUrl.includes('/jigsaw/row-')) {
+					const match = piece.imageUrl.match(/\/jigsaw\/row-(\d+)-column-(\d+)\.jpg/);
+					if (match) {
+						const row = parseInt(match[1], 10);
+						const col = parseInt(match[2], 10);
+						return {
+							...piece,
+							imageUrl: getImageUrl(row, col)
+						};
+					}
+				}
+				return piece;
+			});
+			jigsawPieces.set(shuffled);
 		}
 
 		checkCompletion();
@@ -97,6 +113,7 @@
 		[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
 		shuffled = shuffled;
 		jigsawPieces.set(shuffled);
+		savePuzzleState();
 		checkCompletion();
 	}
 
@@ -104,6 +121,7 @@
 		const solved = shuffled.every((piece, idx) => piece.correctIndex === idx);
 		if (solved) {
 			jigsawCompleted.set(true);
+			savePuzzleState();
 		}
 	}
 
@@ -129,17 +147,41 @@
 
 	function handleImageError(imageUrl: string): void {
 		console.error(`Failed to load image: ${imageUrl}`);
+		imagesFailedToLoad++;
+
+		const imgElement = new Image();
+		imgElement.onload = () => {
+			imagesLoaded++;
+			if (imagesLoaded === rows * cols) {
+				allImagesLoaded = true;
+			}
+		};
+		imgElement.onerror = () => {
+			console.error(`Second attempt to load image failed: ${imageUrl}`);
+		};
+
+		const base = import.meta.env.BASE_URL || '';
+		if (imageUrl.includes('/jigsaw/row-')) {
+			const match = imageUrl.match(/\/jigsaw\/row-(\d+)-column-(\d+)\.jpg/);
+			if (match) {
+				const row = match[1];
+				const col = match[2];
+				imgElement.src = `${base}/jigsaw/row-${row}-column-${col}.jpg`;
+			} else {
+				imgElement.src = imageUrl;
+			}
+		}
 	}
 
 	$: gridStyle = `
-        display: grid; 
-        grid-template-columns: repeat(${cols}, minmax(0, 1fr));
-        border: 2px solid #9ca3af;
-        padding: 0.25rem;
-        width: 100%;
-        max-width: 800px;
-        margin: 0 auto;
-    `;
+		  display: grid; 
+		  grid-template-columns: repeat(${cols}, minmax(0, 1fr));
+		  border: 2px solid #9ca3af;
+		  padding: 0.25rem;
+		  width: 100%;
+		  max-width: 800px;
+		  margin: 0 auto;
+	  `;
 </script>
 
 <div class="game-wrapper">
